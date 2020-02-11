@@ -8,10 +8,13 @@ class PlayersController < ApplicationController
 	end
 
 	def create
-		p=Player.new(player_params)
-		# p.name= params[:player][:name]
-		# p.lastname= params[:player][:last_name]
-		p.team_id= Team.find_by(name: params[:player][:team]).id
+
+		p=Player.new
+		p_params=player_params
+		p.name= p_params[:name]
+		p.lastname= p_params[:lastname]
+		p.age=p_params[:age]
+		p.team_id= Team.find_by(name: p_params[:team]).id
 		@team_id=p.team_id
 
 		if p.save
