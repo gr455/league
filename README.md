@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # README
 
 This README would normally document whatever steps are necessary to get the
@@ -22,3 +23,7 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+=======
+# league
+Simple Rails app to manage players and teams in a league
+>>>>>>> 80650e54dddbb9575d118146b12c5d1d920f5d0a
