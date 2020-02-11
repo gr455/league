@@ -11,7 +11,7 @@ class PlayersController < ApplicationController
 		p=Player.new(player_params)
 		# p.name= params[:player][:name]
 		# p.lastname= params[:player][:last_name]
-		# p.team_id= Team.find_by(name: params[:player][:team_id])
+		p.team_id= Team.find_by(name: params[:player][:team]).id
 		@team_id=p.team_id
 
 		if p.save
@@ -28,6 +28,11 @@ class PlayersController < ApplicationController
 
 	def doUpdate
 		p=Player.find(params[:id])
+		p_params=player_params
+		p_params[:team_id]=Team.find_by(name: params[:player][:team]).id
+		p_params.delete(:team) # :team was interfering with the player_params for the update method
+		puts p_params
+		puts "LOOK UP"
 		if p.update(player_params)
 			redirect_to	"/players"
 		end
@@ -35,7 +40,7 @@ class PlayersController < ApplicationController
 
 	private
 		def player_params
-			params.require(:player).permit(:name,:lastname,:age,:team_id)
+			params.require(:player).permit!
 		end
 	
 end
