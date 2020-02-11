@@ -1,0 +1,25 @@
+<h1 align="center">WELCOME TO THE LEAGUE YO</h1>
+
+<h2 align="center">Showing <%=@teams.count%> Team(s)</h2>
+<br>
+<table align="center">
+	<thead>
+		<tr>
+			<td><b>Team Name</b></td>
+		</tr>
+	</thead>
+
+
+	<tbody>
+		<%@teams.each do |team|%> 
+		<tr>
+			<td><%=team.name%></a></td>
+		<%end%>
+		</tr>	
+	</tbody>
+
+</table>
+<div align="center" >
+<br>
+<a href="/players">Checkout Players</a>
+</div>
