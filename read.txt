@@ -1,0 +1,62 @@
+imp//1 : When you add a foreign key in a table, one row of the current table can only reference one other row of the foreign key. This means that only a many to one mapping is possible. If we want a many to many mapping, we gon need an intermediate table
+
+Now that I created the address table, referenced Player table, it added a primary key on "id" of Player and referenced that in "player_id" foreign key of the Address table.
+
+has_one: The current model has it's foreign key in the said model
+belongs_to: the current model contains the foreign key of the said model
+
+rails generate model address street:string player:references creates the address model with foreign key of Player model
+
+Now I put belongs_to in the address model. So i can do address_instance.player and get the referenced row in player model
+BUUT if I do player_instance.address, It will throw an error
+this is because the address model belongs_to player, but the player model doesn't has_one/has_many address
+So I put has_one :address in player and all was gucci
+
+Now. A team can have many players but a player can have only one team, So... I the team has_many :player (notice team doesnt belong_to player, this is because if we make a foreign key of the "player" in team, it can have only one player.) #think on this
+So instead, we make a foreign key of address in player because player can anyway have only one team
+
+rails generate migration AddReferenceToPlayer team:references     this command automatically creates a migration to do the above. rake db:migrate
+
+Apparently, belongs_to is auto added in the migration only if the reference is set while creating the model. using AddReferenceTo___ doesn't add belongs_to, only changes the schema.rb to contain team_id
+
+WHOA, okay so has_many requires plural noun. So if the thing is called player, it's has_many :players
+It goes as far as to pluralize medium into media
+
+I have now made an appearance model and a game model. Game model has the details of the home and the away team and appearance model only has team and player references(has foreign key of game and player in the table)
+Here appearance model acts as a intermediate table.(Because we need a many to many mapping)
+
+See how thers home and away strings in Game model. Here I could have added references to Team model by using Game belongs_to :team
+
+Appearance.create(player_id: 1 , game_id: 1) is how we establish the relationship
+further Appearance.create(player_id: 1 , game_id: 3) also works
+It is obvious that the appearances table will be kinda messy cuz pid 1 gid4 and pid 1 gid 1 all will be seperate rows but thats okay
+
+We will access the relationship like Player.first.games , involvement of Appearance model is hidden
+
+I put a /players route in routes.rb in get request as
+get "players" => "players#index" itll take the index method from "players" controller
+
+Now I generated the players controller using rails generate controller players
+
+Now to add a route. First you make the changes in the routes.rb file adding a route say "players/new"=>"players#new"
+Now since players#new, you gotta make a method new in players controller
+
+You also need to create authenticity token by using a ruby function inside a hidden input in html.erb to be able to create post requests
+
+**Remember. The player=>player#(this part), the name of the method and the name of the template must be the same**	
+
+Also if you make an input type=hidden with name="_method" value="patch",
+it will override the method of the form to "patch" in the rails backend. We do this because HTML doesn't support patch requests
+
+YOU MUST REMEMBER:
+
+Controller gets the information directly from the template's form. So you must accept all inputs as params[:key] in the controller
+
+Routes gets the information directly from the "action" attribute of the form-> the corresponding route function in the controller is then called.
+Controller gets the inf...(repeat)
+
+Whatever you put as @ say @player=Player.find(somn), goes as an accessible parameter to the template
+
+#A href is a get request
+
+#ig# When you reference an attribute in routes, ex :id, that information is passed on to the controller as params

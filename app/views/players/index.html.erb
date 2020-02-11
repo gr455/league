@@ -1,0 +1,31 @@
+<h1 align="center">WELCOME TO THE LEAGUE YO</h1>
+
+<h2 align="center">Showing <%=@players.count%> Player(s)</h2>
+<br>
+<table align="center">
+	<thead>
+		<tr>
+			<td><b>First Name</b></td>
+			<td><b>Last Name</b></td>
+			<td><b>Age</b></td>
+			<td><b>Team</b></td>
+		</tr>
+	</thead>
+
+
+	<tbody>
+		<%@players.each do |player|%> 
+		<tr>
+			<td><a href="/players/<%=player.id%>"><%=player.name%></a></td>
+			<td><%=player.lastname%></td>
+			<td><%=player.age%></td>
+			<td><%=player.team.name%></td>
+
+		<%end%>
+		</tr>	
+	</tbody>
+
+</table>
+<div align="center" >
+<a href="/players/new">Create new player</a>
+</div>

@@ -1,0 +1,30 @@
+<h1 align="center"> Add a new player to the league </h1>
+
+<%if flash[:errors]%>
+	<%flash[:errors].each do |err|%>
+		<p><%= err %></p>
+	<%end%>
+<%end%>
+
+<form action="/players" method="POST" align="center">
+	<input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+	<p>
+		<label>Enter First Name</label>
+		<input type="text" name="player[name]">
+	</p>
+
+	<p>
+		<label>Enter Last Name</label>
+		<input type="text" name="player[last_name]">
+	</p>
+
+	<p>
+		<label>Enter Age</label>
+		<input type="text" name="player[age]">
+	</p>
+	<p>
+		<label>Enter Team</label>
+		<input type="text" name="player[team]">
+	</p>
+	<input type=submit value="Create">
+</form>
