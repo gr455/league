@@ -26,7 +26,8 @@
 
 /public/assets
 .byebug_history
-
+# Ignore mysql2 db config
+/config/database.yml
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 =======
